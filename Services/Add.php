@@ -1,15 +1,21 @@
 <?php
 
-class Add
-{
-    private $queue = [];
+namespace Services;
 
-    public function __construct()
+use Interfaces\ServiceInterface;
+
+class Add extends Service implements ServiceInterface
+{
+    public function service()
     {
-        $this->service();
+        [$name, $createdDate, $numberOfPorduct] = $this->question();
+
+        $this->beforeSave($name, $createdDate, $numberOfPorduct);
+
+        $this->questionForNewProduct();
     }
 
-    private function service()
+    private function question()
     {
         if( ! $name = readline('Name product: ')) return $this->service();
         ($createdDate = readline('Created date (now): ')) ? $createdDate : $createdDate = date('Y-m-d');
@@ -22,35 +28,31 @@ class Add
         echo "  Number of product: {$numberOfPorduct}\n";
         echo "-------------------------\n\n";
 
-        $this->addToQueue($name, $createdDate, $numberOfPorduct);
+        return [$name, $createdDate, $numberOfPorduct];
     }
 
-    private function addToQueue($name, $createdDate, $numberOfPorduct)
+    private function questionForNewProduct()
     {
-        array_push($this->queue, [
-            'name' => $name,
-            'createdDate' => $createdDate,
-            'numberOfPorduct' => $numberOfPorduct,
-        ]);
-
         $checkAddNewProduct = readline("Do you want to add a new product? (Y,N):");
 
         if($checkAddNewProduct == 'Y' or $checkAddNewProduct == 'y')
             return $this->service();
-
-        return $this->save();
     }
 
-    private function save()
+    private function beforeSave($name, $createdDate, $numberOfPorduct)
     {
-        $queue = $this->queue;
+        $this->save([
+            'name' => $name,
+            'createdDate' => $createdDate,
+            'numberOfPorduct' => $numberOfPorduct,
+        ]);
+    }
 
-        foreach($queue as $item)
-        {
-            $randomNumber = random_int(10000,20000);
+    private function save($item)
+    {
+        $randomNumber = random_int(10000,20000);
 
-            file_put_contents("products/{$randomNumber}.json", json_encode($item, FILE_APPEND));
-        }
+        file_put_contents("products/{$randomNumber}.json", json_encode($item, FILE_APPEND));
 
         echo "Product Created : code-{$randomNumber}\n\n";
 

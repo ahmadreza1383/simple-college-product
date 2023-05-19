@@ -1,13 +1,12 @@
 <?php
 
-class Find
-{
-    public function __construct()
-    {
-        $this->service();
-    }
+namespace Services;
 
-    private function service()
+use Interfaces\ServiceInterface;
+
+class Find extends Service implements ServiceInterface
+{
+    public function service()
     {
         $code = readline("Code product: ");
 
@@ -38,5 +37,6 @@ class Find
         echo "Name: $find->name\n";
         echo "Created date: $find->createdDate\n";
         echo "Nsumber of porduct: $find->numberOfPorduct\n";
-        echo "-------------------------\n\n";    }
+        echo "-------------------------\n\n";    
+    }
 }

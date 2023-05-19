@@ -1,19 +1,18 @@
 <?php
 
-class Remove
-{
-    public function __construct()
-    {
-        $this->service();
-    }
+namespace Services;
 
-    private function service()
+use Interfaces\ServiceInterface;
+
+class Remove extends Service implements ServiceInterface
+{
+    public function service()
     {
         $code = readline("Code product: (History: L) ");
 
         if($code == 'L')
         {
-            (new History);
+            (new History)->service();
              return $this->service();
         }
 

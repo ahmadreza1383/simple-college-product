@@ -1,13 +1,12 @@
 <?php
 
-class History
-{
-    public function __construct()
-    {
-        $this->service();
-    }
+namespace Services;
 
-    private function service()
+use Interfaces\ServiceInterface;
+
+class History extends Service implements ServiceInterface
+{
+    public function service()
     {
         $scan = scandir('products');
         
