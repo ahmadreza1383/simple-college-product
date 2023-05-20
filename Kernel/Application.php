@@ -4,10 +4,10 @@ namespace Kernel;
 
 class Application
 {
-    public function run()
+    public function __construct()
     {
         (new Service)->handle();
 
-        $this->run();
+        new $this;
     }
 }
