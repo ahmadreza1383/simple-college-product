@@ -1,10 +1,10 @@
 <?php
 
-namespace Services;
+namespace Services\Add;
 
 use Interfaces\ServiceInterface;
 
-class Add extends Service implements ServiceInterface
+class AddService implements ServiceInterface
 {
     public function service()
     {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Services;
+namespace Services\Remove;
 
 use Interfaces\ServiceInterface;
 
-class Remove extends Service implements ServiceInterface
+class RemoveService implements ServiceInterface
 {
     public function service()
     {

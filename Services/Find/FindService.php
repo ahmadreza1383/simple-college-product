@@ -1,10 +1,10 @@
 <?php
 
-namespace Services;
+namespace Services\Find;
 
 use Interfaces\ServiceInterface;
 
-class Find extends Service implements ServiceInterface
+class FindService implements ServiceInterface
 {
     public function service()
     {

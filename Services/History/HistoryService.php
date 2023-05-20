@@ -1,10 +1,10 @@
 <?php
 
-namespace Services;
+namespace Services\History;
 
 use Interfaces\ServiceInterface;
 
-class History extends Service implements ServiceInterface
+class HistoryService implements ServiceInterface
 {
     public function service()
     {

@@ -23,7 +23,7 @@ class Service
 
     private function select($option)
     {
-        $option = "\\Services\\".$option;
+        $option = "\\Services\\{$option}\\$option"."Service";
 
         (new $option)->service();
     }
