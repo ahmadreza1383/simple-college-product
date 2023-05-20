@@ -2,4 +2,4 @@
 
 require 'autoload.php';
 
-(new Application)->run();
+(new Kernel\Application)->run();
