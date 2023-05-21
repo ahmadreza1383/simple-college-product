@@ -3,34 +3,46 @@ namespace Services\Add\Menu;
 
 class Menu
 {
-    private static $items = [];
+    private static $items;
 
-    public static $solutions = [] ;
+    public $solutions = [];
 
     /**
      * @param array $items
      */
-    public function __invoke($items)
+    public static function __callStatic($method, $args)
     {
-        static::$items = $items;
+        (new static)->$method($args);
+
+        return new static;
+    }
+
+    public function __call($method, $args)
+    {
+        $this->$method($args);
 
         return $this;
     }
 
-    public function question()
+    private function set(array $items)
+    {
+        static::$items = $items[0];
+    }
+
+    private function question()
     {
         foreach(static::$items as $key => $item)
         {
             if(! $value = readline($item['question']))
                 return call_user_func($item['else']);
 
-            static::$solutions[$key] = $value;
+            $this->solutions[$key] = $value;
         }
     }
 
-    public static function print()
+    private function print()
     {
-        $solutions = static::$solutions;
+        $solutions = $this->solutions;
 
         echo "-------------------------\n";
         foreach(static::$items as $key => $item)
