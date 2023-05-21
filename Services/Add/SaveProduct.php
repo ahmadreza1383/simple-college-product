@@ -2,16 +2,12 @@
 
 namespace Services\Add;
 
-class SaveProduct
-{
-    public function save($name, $createdDate, $numberOfPorduct)
-    {
-        $item = [
-            'name' => $name,
-            'createdDate' => $createdDate,
-            'numberOfPorduct' => $numberOfPorduct,
-        ];
+use Services\Add\ChainCall;
 
+class SaveProduct extends ChainCall
+{
+    protected function save($item)
+    {
         $randomNumber = random_int(10000,20000);
 
         file_put_contents("products/{$randomNumber}.json", json_encode($item, FILE_APPEND));
