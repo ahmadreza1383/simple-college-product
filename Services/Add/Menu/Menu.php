@@ -1,35 +1,20 @@
 <?php
 namespace Services\Add\Menu;
 
-class Menu
+use Services\Add\ChainCall;
+
+class Menu extends ChainCall
 {
     private static $items;
 
     public $solutions = [];
 
-    /**
-     * @param array $items
-     */
-    public static function __callStatic($method, $args)
-    {
-        (new static)->$method($args);
-
-        return new static;
-    }
-
-    public function __call($method, $args)
-    {
-        $this->$method($args);
-
-        return $this;
-    }
-
-    private function set(array $items)
+    protected function set(array $items)
     {
         static::$items = $items[0];
     }
 
-    private function question()
+    protected function question()
     {
         foreach(static::$items as $key => $item)
         {
@@ -40,7 +25,7 @@ class Menu
         }
     }
 
-    private function print()
+    protected function print()
     {
         $solutions = $this->solutions;
 

@@ -2,23 +2,11 @@
 
 namespace Services\Add;
 
-class SaveProduct
+use Services\Add\ChainCall;
+
+class SaveProduct extends ChainCall
 {
-    public static function __callStatic($method, $args)
-    {
-        (new static)->$method($args);
-
-        return new static;
-    }
-
-    public function __call($method, $args)
-    {
-        $this->$method($args);
-
-        return $this;
-    }
-
-    private function save($item)
+    protected function save($item)
     {
         $randomNumber = random_int(10000,20000);
 

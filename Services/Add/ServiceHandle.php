@@ -15,7 +15,8 @@ class ServiceHandle implements ServiceInterface
                 'question' => 'Name product:',
                 'message' => 'Product name: ',
                 'else' => function(){
-                    return (new Menu)->question();
+                    //TODO ERROR: Undefined array keys
+                    return Menu::question();
                 }
             ],
             'createdDate' =>
