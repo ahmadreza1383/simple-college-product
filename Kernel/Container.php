@@ -7,30 +7,42 @@ class Container
 
     public static function __callStatic($method, $args)
     {
-        (new self)->$method(...$args);
+        if(in_array($method, get_class_methods(new self)))
+        {
+            (new self)->$method(...$args);
 
-        return new self;
+            return new self;
+        };
+
+        if(in_array($method, get_class_methods(static::class)))
+        {
+            $method = (new static)->$method(...$args);
+
+            return self::judge(new static, $method);
+        }
     }
 
     public function __call($method, $args)
     {
-        $method = (new static::$instanse)->$method(...$args);
+        if(is_null($instanse = static::$instanse))
+        {
+            $method = (new static)->$method(...$args);
 
-        return (is_null($method)) ? $this : $method;
+            return self::judge($this, $method);
+        }
+
+        $method = (new $instanse)->$method(...$args);
+
+        return self::judge($this, $method);
+    }
+
+    private static function judge($instanse, $method)
+    {
+        return (is_null($method)) ? $instanse : $method;
     }
 
     private function call($instanse)
     {
         static::$instanse =  (new $instanse);
-    }
-}
-
-class Test1
-{
-    public function call()
-    {
-        $name = Container::call('Confirm')
-        ->message('What is your name?')
-        ->get();
     }
 }
