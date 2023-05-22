@@ -25,6 +25,6 @@ class Service
     {
         $option = "\\Services\\{$option}\\ServiceHandle";
 
-        (new $option)->service();
+        Container::call($option)->service();
     }
 }

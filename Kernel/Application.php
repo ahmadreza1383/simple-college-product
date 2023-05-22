@@ -1,12 +1,11 @@
 <?php
 
 namespace Kernel;
-
 class Application
 {
     public function __construct()
     {
-        (new Service)->handle();
+        Container::call(Service::class)->handle();
 
         new $this;
     }
