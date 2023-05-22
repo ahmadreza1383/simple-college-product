@@ -12,7 +12,8 @@ class Service
 
     public function handle()
     {
-        $service = (new Menu)($this->services);
+        $service = Container::callback(Menu::class, $this->services);
+
         $option = array_search($service, $this->services);
 
         if($option)
