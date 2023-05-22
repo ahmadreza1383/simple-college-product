@@ -18,7 +18,7 @@ class Confirm extends ChainCall
 
     protected function get()
     {
-        return (($result = static::$message)) ?  : false;
+        return static::$message;
     }
 
     /**
