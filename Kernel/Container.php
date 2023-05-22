@@ -9,9 +9,9 @@ class Container
     {
         if(in_array($method, get_class_methods(new self)))
         {
-            (new self)->$method(...$args);
+            $method = (new self)->$method(...$args);
 
-            return new self;
+            return self::judge(new self, $method);
         };
 
         if(in_array($method, get_class_methods(static::class)))
@@ -44,5 +44,10 @@ class Container
     private function call($instanse)
     {
         static::$instanse =  (new $instanse);
+    }
+
+    private function callback($class, $params)
+    {
+        return (new $class)($params);
     }
 }
